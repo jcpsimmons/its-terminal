@@ -1,5 +1,7 @@
 import responses from "./data/cannedResponses.js";
 
+var markdownConverter = new showdown.Converter();
+
 // Data store
 let state = {
   history: { index: 0, scrollSession: false },
@@ -9,11 +11,11 @@ let state = {
 
 // Reusable Functions
 // paste a message on the terminal, if html set true, just use that code, otherwise use a p tag
-const addToConsole = (output, html = false) => {
-  if (html) {
+const addToConsole = (output, markdown = false) => {
+  if (markdown) {
     document
       .getElementById("TerminalInput")
-      .insertAdjacentHTML("beforebegin", output);
+      .insertAdjacentHTML("beforebegin", markdownConverter.makeHtml(output));
   } else {
     document
       .getElementById("TerminalInput")
@@ -47,7 +49,7 @@ const enterHandler = () => {
       state.currentResponse = "ding";
       break;
     case "header":
-      addToConsole("<h1>boom</h1>", true);
+      addToConsole(responses.lineReturn, true);
       break;
     default:
       break;
@@ -87,3 +89,6 @@ document.addEventListener("keydown", e => {
     }
   }
 });
+
+// This fires on doc ready (script is loader after doc)
+addToConsole(responses.intro, true);
