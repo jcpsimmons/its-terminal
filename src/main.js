@@ -1,17 +1,19 @@
-// Data store
-state = {
-  history: { index: 0, scrollSession: false },
-  consoleHistory: []
-};
+import responses from "./data/cannedResponses.js";
 
-// Responses
-responses = {
-  demoResponse: "This is a demo response"
+// Data store
+let state = {
+  history: { index: 0, scrollSession: false },
+  consoleHistory: [],
+  currentResponse: ""
 };
 
 // Reusable Functions
+// paste a message on the terminal, if html set true, just use that code, otherwise use a p tag
 const addToConsole = (output, html = false) => {
   if (html) {
+    document
+      .getElementById("TerminalInput")
+      .insertAdjacentHTML("beforebegin", output);
   } else {
     document
       .getElementById("TerminalInput")
@@ -20,6 +22,8 @@ const addToConsole = (output, html = false) => {
         `<p class='consoleLine'>${output}</p>`
       );
   }
+
+  state.currentResponse = "";
 };
 
 // Handlers
@@ -38,8 +42,12 @@ const enterHandler = () => {
 
   // Check if it should trigger anything
   switch (input) {
-    case "demo response":
-      addToConsole("worked");
+    case "bloop":
+      addToConsole(responses.ding);
+      state.currentResponse = "ding";
+      break;
+    case "header":
+      addToConsole("<h1>boom</h1>", true);
       break;
     default:
       break;
