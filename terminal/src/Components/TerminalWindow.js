@@ -53,10 +53,16 @@ export default class TerminalWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chatHistory: [<Greeting />],
+      chatHistory: [<Greeting test={this.callbackTest} />],
       currentText: ""
     };
   }
+
+  //   this is how I can pass props back up with element clicks
+  callbackTest = e => {
+    e.preventDefault();
+    console.log(e.target.dataset.link);
+  };
 
   handleTextInput = e => {
     this.setState({

@@ -10,7 +10,7 @@ const hello = `
 \\_| |_/\\___|_|_|\\___/ 
 `;
 
-function Greeting() {
+function Greeting(props) {
   return (
     <div>
       <pre>{hello}</pre>
@@ -19,7 +19,9 @@ function Greeting() {
       like to view. Please enable sound for a more immersive experience.
       <ol>
         <li>
-          <a href="#">item 1</a>
+          <a onClick={props.test} href="#" data-link="item1">
+            item 1
+          </a>
         </li>
         <li>
           <a href="#">another item</a>
@@ -28,7 +30,9 @@ function Greeting() {
           <a href="#">a third item</a>
         </li>
         <li>
-          <a href="#">About Portfolio Site</a>
+          <a href="#" data-link="AboutSite">
+            About Portfolio Site
+          </a>
         </li>
       </ol>
     </div>
