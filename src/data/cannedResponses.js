@@ -18,10 +18,10 @@ Welcome to the portfolio site of Josh Simmons. The menu options may have changed
 Please enable sound for a more immersive experience.
 
 <ol>
-<li><a href="#">item 1</a></li>
-<li><a href="#">another item</a></li>
-<li><a href="#">a third item</a></li>
-<li><a href="#">About Portfolio Site</a></li>
+<li><a onclick="window.handleLinkClick()" href="#">item 1</a></li>
+<li><a onclick="handleLinkClick()" href="#">another item</a></li>
+<li><a onclick="handleLinkClick()" href="#">a third item</a></li>
+<li><a onclick="handleLinkClick()" href="#">About Portfolio Site</a></li>
 </ol>
 
 `

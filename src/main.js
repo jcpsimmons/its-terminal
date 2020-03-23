@@ -69,6 +69,11 @@ const handleArrowScroll = val => {
     state.consoleHistory[state.history.index];
 };
 
+const handleLinkClick = e => {
+  e.preventDefault();
+  alert("x");
+};
+
 // Event Listeners
 document.addEventListener("keydown", e => {
   if (e.key == "Enter") {
@@ -88,15 +93,6 @@ document.addEventListener("keydown", e => {
       handleArrowScroll(-1);
     }
   }
-});
-
-document.querySelectorAll("a").forEach(tag => {
-  tag.removeEventListener("click");
-  tag.addEventListener("click", e => {
-    console.log("asefa");
-    e.preventDefault();
-    console.log(e.target.value);
-  });
 });
 
 // This fires on doc ready (script is loader after doc)
