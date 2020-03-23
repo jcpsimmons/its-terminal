@@ -13,11 +13,17 @@ const responses = {
 </pre>
 
 
-Welcome to my site. The menu options may have changed so please take a look and enter (or click) the option you'd like to view.
+Welcome to the portfolio site of Josh Simmons. The menu options may have changed so please take a look and enter (or click/tap) the option you'd like to view.
 
-1. <a>item 1
-2. another item
-3. a third item
+Please enable sound for a more immersive experience.
+
+<ol>
+<li><a href="#">item 1</a></li>
+<li><a href="#">another item</a></li>
+<li><a href="#">a third item</a></li>
+<li><a href="#">About Portfolio Site</a></li>
+</ol>
+
 `
 };
 export default responses;

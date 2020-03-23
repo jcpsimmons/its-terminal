@@ -90,5 +90,14 @@ document.addEventListener("keydown", e => {
   }
 });
 
+document.querySelectorAll("a").forEach(tag => {
+  tag.removeEventListener("click");
+  tag.addEventListener("click", e => {
+    console.log("asefa");
+    e.preventDefault();
+    console.log(e.target.value);
+  });
+});
+
 // This fires on doc ready (script is loader after doc)
 addToConsole(responses.intro, true);
