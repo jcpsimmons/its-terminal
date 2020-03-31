@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
 
-import { Greeting } from "./Responses";
+import Responses from "./Responses";
 
 const glowAnimation = keyframes`
     from {
@@ -15,6 +15,7 @@ const glowAnimation = keyframes`
 
 const TerminalScreen = styled.div`
   overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -27,6 +28,7 @@ const TerminalScreen = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   * {
     font-family: "IBM Plex Mono", monospace;
     font-weight: bold;
@@ -34,6 +36,12 @@ const TerminalScreen = styled.div`
     -webkit-animation: ${glowAnimation} 3s ease-in-out infinite alternate;
     -moz-animation: ${glowAnimation} 3s ease-in-out infinite alternate;
     animation: ${glowAnimation} 3s ease-in-out infinite alternate;
+  }
+  li {
+    word-break: break-word;
+  }
+  p {
+    margin: 0;
   }
 `;
 
@@ -53,15 +61,27 @@ export default class TerminalWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chatHistory: [<Greeting test={this.callbackTest} />],
-      currentText: ""
+      chatHistory: [<Responses passLinkUp={this.passLinkUp} />],
+      currentText: "",
+      machine: "anonMachine"
     };
   }
 
+  // get computer os and info on load for bash prompts
+  componentDidMount() {
+    if (navigator.platform) {
+      this.setState({ machine: navigator.platform });
+    }
+  }
+
   //   this is how I can pass props back up with element clicks
-  callbackTest = e => {
+  passLinkUp = e => {
     e.preventDefault();
-    console.log(e.target.dataset.link);
+    let clickedText = e.target.innerText;
+    this.setState({
+      chatHistory: (this.state.currentText = clickedText)
+    });
+    this.wrapAndLogText();
   };
 
   handleTextInput = e => {
@@ -72,15 +92,23 @@ export default class TerminalWindow extends Component {
 
   onEnterHandler = e => {
     if (e.key === "Enter" && this.state.currentText !== "") {
-      //   wrap the text in a p tag
-      let formattedText = <p>{this.state.currentText}</p>;
-
-      this.setState({
-        chatHistory: this.state.chatHistory.concat(formattedText),
-        currentText: ""
-      });
+      this.wrapAndLogText();
       e.target.value = "";
     }
+  };
+
+  wrapAndLogText = () => {
+    //   wrap the text in a p tag
+    let formattedText = (
+      <p>
+        {this.state.machine}:~ {this.state.currentText}
+      </p>
+    );
+
+    this.setState({
+      chatHistory: this.state.chatHistory.concat(formattedText),
+      currentText: ""
+    });
   };
 
   render() {

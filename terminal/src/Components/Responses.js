@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 // ASCII Art to preserve formatting
 const hello = `
@@ -10,33 +10,51 @@ const hello = `
 \\_| |_/\\___|_|_|\\___/ 
 `;
 
-function Greeting(props) {
-  return (
-    <div>
-      <pre>{hello}</pre>
-      Welcome to the portfolio site of Josh Simmons. The menu options may have
-      changed so please take a look and enter (or click/tap) the option you'd
-      like to view. Please enable sound for a more immersive experience.
-      <ol>
-        <li>
-          <a onClick={props.test} href="#" data-link="item1">
-            item 1
-          </a>
-        </li>
-        <li>
-          <a href="#">another item</a>
-        </li>
-        <li>
-          <a href="#">a third item</a>
-        </li>
-        <li>
-          <a href="#" data-link="AboutSite">
-            About Portfolio Site
-          </a>
-        </li>
-      </ol>
-    </div>
-  );
+export default class Responses extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    // just use a try catch sort of like a switch with this - don't forget to display an error message and pass some info back up to parent component on err
+    // have something for sudo --- this is the easter egg
+    const responseObject = {
+      greeting: (
+        <div>
+          <pre>{hello}</pre>
+          Welcome to the portfolio site of Josh Simmons. The menu options may
+          have changed so please take a look and enter (or click/tap) the option
+          you'd like to view. Please enable sound for a more immersive
+          experience.
+          <br />
+          <br />
+          Under no circumstances should you try to escalate your privileges to
+          superuser on this machine 😉
+          <ol>
+            <li>
+              <a onClick={this.props.passLinkUp} href="#">
+                nano ~./Documents/resume.md
+              </a>
+            </li>
+            <li>
+              <a onClick={this.props.passLinkUp} href="#">
+                lynx ~./web_projects.html
+              </a>
+            </li>
+            <li>
+              <a onClick={this.props.passLinkUp} href="#">
+                man website
+              </a>
+            </li>
+            <li>
+              <a onClick={this.props.passLinkUp} href="#">
+                man josh
+              </a>
+            </li>
+          </ol>
+        </div>
+      )
+    };
+    return <div>{responseObject["greeting"]}</div>;
+  }
 }
-
-export { Greeting };
