@@ -23,7 +23,7 @@ const TerminalScreen = styled.div`
 
   * {
     font-family: "IBM Plex Mono", monospace;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #46ff43;
   }
@@ -105,9 +105,9 @@ export default class TerminalWindow extends Component {
         {this.state.machine}:~ {this.state.currentText}
       </p>
     );
-
+    let newHistory = this.state.chatHistory.concat(formattedText);
     this.setState({
-      chatHistory: this.state.chatHistory.concat(formattedText),
+      chatHistory: newHistory,
       currentText: "",
     });
   };

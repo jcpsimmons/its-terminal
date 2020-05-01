@@ -56,7 +56,46 @@ export default class Responses extends Component {
       ),
       resume: (
         <div>
-          <p>This is wher the resume will go</p>
+          <p>~~~~~~~~~~~~~~~~~~~</p>
+          <p>Josh Simmons Resume</p>
+          <p>~~~~~~~~~~~~~~~~~~~</p>
+          <br />
+          <p>Employment</p>
+          <ul>
+            <li>
+              Front End Developer
+              <ul>
+                <li>Living Spaces Furniture</li>
+                <li>May 2019 - Present</li>
+              </ul>
+            </li>
+            <li>
+              Web Developer
+              <ul>
+                <li>University of California Irvine</li>
+                <li>August 2015 - Spring 2019</li>
+              </ul>
+            </li>
+            <li>
+              C# Developer
+              <ul>
+                <li>Headbang VR</li>
+                <li>May 2017 - May 2018</li>
+              </ul>
+            </li>
+          </ul>
+          <p>-------------------</p>
+          <br />
+          <p>Education</p>
+          <p>-------------------</p>
+          <br />
+          <p>Education</p>
+          <p>-------------------</p>
+          <br />
+          <p>Education</p>
+          <p>-------------------</p>
+          <br />
+          <p>Education</p>
         </div>
       ),
       error: (
@@ -70,6 +109,7 @@ export default class Responses extends Component {
     // translation case in case props doesn't directly match an object key
     if (Object.keys(responseObject).indexOf(this.props.response) == -1) {
       console.log("eval res obj");
+      console.log("this.props.response", this.props.response);
       switch (this.props.response) {
         case "nano ~./Documents/resume.md":
         case "1":
