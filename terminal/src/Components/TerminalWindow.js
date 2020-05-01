@@ -1,17 +1,9 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
 
-import Responses from "./Responses";
+import "../crtStyling.css";
 
-const glowAnimation = keyframes`
-    from {
-      text-shadow: 0 0 1px rgba(255, 255, 255, 0.404),
-        0 0 3px rgba(255, 255, 255, 0.404), 0 0 5px #46ff435d;
-    }
-    to {
-      text-shadow: 0 0 2px rgba(255, 255, 255, 0.404), 0 0 4px #a0eba7,
-        0 0 3px #a0eba7;
-    }`;
+import Responses from "./Responses";
 
 const TerminalScreen = styled.div`
   overflow-y: scroll;
@@ -31,11 +23,9 @@ const TerminalScreen = styled.div`
 
   * {
     font-family: "IBM Plex Mono", monospace;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #46ff43;
-    -webkit-animation: ${glowAnimation} 3s ease-in-out infinite alternate;
-    -moz-animation: ${glowAnimation} 3s ease-in-out infinite alternate;
-    animation: ${glowAnimation} 3s ease-in-out infinite alternate;
   }
   li {
     word-break: break-word;
@@ -61,9 +51,11 @@ export default class TerminalWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chatHistory: [<Responses passLinkUp={this.passLinkUp} />],
+      chatHistory: [
+        <Responses passLinkUp={this.passLinkUp} response="greeting" />,
+      ],
       currentText: "",
-      machine: "anonMachine"
+      machine: "anonMachine",
     };
   }
 
@@ -75,24 +67,33 @@ export default class TerminalWindow extends Component {
   }
 
   //   this is how I can pass props back up with element clicks
-  passLinkUp = e => {
+  passLinkUp = (e) => {
     e.preventDefault();
     let clickedText = e.target.innerText;
     this.setState({
-      chatHistory: (this.state.currentText = clickedText)
+      chatHistory: (this.state.currentText += clickedText),
     });
     this.wrapAndLogText();
   };
 
-  handleTextInput = e => {
+  handleTextInput = (e) => {
     this.setState({
-      currentText: e.target.value
+      currentText: e.target.value,
     });
   };
 
-  onEnterHandler = e => {
+  onEnterHandler = (e) => {
     if (e.key === "Enter" && this.state.currentText !== "") {
       this.wrapAndLogText();
+      const newHistory = this.state.chatHistory.concat(
+        <Responses
+          passLinkUp={this.passLinkUp}
+          response={this.state.currentText}
+        />
+      );
+      this.setState({
+        chatHistory: newHistory,
+      });
       e.target.value = "";
     }
   };
@@ -107,15 +108,15 @@ export default class TerminalWindow extends Component {
 
     this.setState({
       chatHistory: this.state.chatHistory.concat(formattedText),
-      currentText: ""
+      currentText: "",
     });
   };
 
   render() {
     return (
-      <div>
+      <div className="crt">
         <TerminalScreen>
-          {this.state.chatHistory.map(el => {
+          {this.state.chatHistory.map((el) => {
             return el;
           })}
           <TerminalInput>

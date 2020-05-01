@@ -29,7 +29,7 @@ export default class Responses extends Component {
           <br />
           <br />
           Under no circumstances should you try to escalate your privileges to
-          superuser on this machine 😉
+          superuser on this machine ;)
           <ol>
             <li>
               <a onClick={this.props.passLinkUp} href="#">
@@ -53,8 +53,33 @@ export default class Responses extends Component {
             </li>
           </ol>
         </div>
-      )
+      ),
+      resume: (
+        <div>
+          <p>This is wher the resume will go</p>
+        </div>
+      ),
+      error: (
+        <div>
+          <p>No such command</p>
+        </div>
+      ),
     };
-    return <div>{responseObject["greeting"]}</div>;
+
+    let responseKey = this.props.response;
+    // translation case in case props doesn't directly match an object key
+    if (Object.keys(responseObject).indexOf(this.props.response) == -1) {
+      console.log("eval res obj");
+      switch (this.props.response) {
+        case "nano ~./Documents/resume.md":
+        case "1":
+          responseKey = "resume";
+          break;
+        default:
+          console.log("default case");
+          responseKey = "error";
+      }
+    }
+    return <div>{responseObject[responseKey]}</div>;
   }
 }
